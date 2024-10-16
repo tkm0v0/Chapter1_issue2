@@ -1,4 +1,7 @@
-// src/tests/componenteSample.spec.jsx
+/**
+ * @jest-environment jsdom
+ */
+
 import { Todo } from "../Todo.jsx";
 import React from "react";
 import '@testing-library/jest-dom';
