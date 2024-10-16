@@ -788,5 +788,43 @@ nameMacBook-Pro sample-vite %
 ```
 # 
 ```
+nameMacBook-Pro sample-vite % npm run test
 
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/sample.spec.js
+ FAIL  src/tests/componenteSample.spec.jsx
+  ● Test suite failed to run
+
+    Configuration error:
+    
+    Could not locate module ./styles.css mapped as:
+    identity-obj-proxy.
+    
+    Please check your configuration for these entries:
+    {
+      "moduleNameMapper": {
+        "/\.(css|less)$/": "identity-obj-proxy"
+      },
+      "resolver": undefined
+    }
+
+      1 | import React from 'react';
+    > 2 | import "./styles.css";
+        | ^
+      3 | import { useState, useEffect } from "react";
+      4 | import { supabase } from './supabase.js';
+      5 |
+
+      at createNoMappedModuleFoundError (node_modules/jest-resolve/build/resolver.js:759:17)
+      at Object.require (src/Todo.jsx:2:1)
+      at Object.require (src/tests/componenteSample.spec.jsx:2:1)
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.02 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
 ```
