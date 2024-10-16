@@ -108,7 +108,8 @@ export const Todo = () => {
 
   return (
     <>
-      <h1>学習記録一覧</h1>
+      <title data-testid="title">Hello Jest</title>
+      <h1 data-testid="title">学習記録一覧</h1>
       <div>
         <div>
           <label>
