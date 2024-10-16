@@ -1122,10 +1122,9 @@ export default {
 
 ```
 
-### 対応4:
-```
+### 対応4:JestとTesting Libraryのバージョンを確認する
+使用しているJestと@testing-library/jest-domのバージョンが互換性があるか確認してください。最新バージョンを使用することをお勧めします。
 
-```
 ### 結果:
 ```
 
