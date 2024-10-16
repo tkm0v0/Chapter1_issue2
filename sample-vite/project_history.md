@@ -1192,6 +1192,53 @@ Time:        1.072 s
 Ran all test suites.
 nameMacBook-Pro sample-vite % 
 ```
+AI
+```
+"CSSファイルの誤り"
+error ファイル './styles.css' が見つからない。
+identity-obj-proxy のマッピング設定エラー。
+解決法を知りたい。
+
+直面中の課題
+
+Jestのテストを実行しようとして、./styles.cssを見つけられないというエラーに直面している。
+
+設定の見直し
+
+jest.config.mjsとbabel.config.jsを点検し、package.jsonのdevDependenciesにidentity-obj-proxyを追加している。
+
+identity-obj-proxy 参照
+
+必要な依存関係を確認
+
+'identity-obj-proxy'が更新されていないことに気づいたので、まずはそれをインストールする必要があると考える。そして、他の潜在的な問題もチェックしているところです。
+
+環境変数の確認
+
+jest.config.mjsのmoduleNameMapperの調整が必要かもしれない。Viteの'import.meta.env'とjest.setup.js/supabase.jsの'process.env'の違いを確認して、'identity-obj-proxy'がインストールされているかどうかを確認している。
+```
+package.jsonのdevDependenciesにidentity-obj-proxyが含まれていないようです。以下のコマンドでインストールしてください。
+```
+nameMacBook-Pro sample-vite % npm install --save-dev identity-obj-proxy
+
+added 2 packages, and audited 1449 packages in 3s
+
+171 packages are looking for funding
+  run `npm fund` for details
+
+12 vulnerabilities (1 low, 3 moderate, 8 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+nameMacBook-Pro sample-vite %
+```
+
+
 # 
 ```
 
