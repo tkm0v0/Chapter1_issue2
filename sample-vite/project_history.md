@@ -1044,7 +1044,7 @@ Ran all test suites.
 nameMacBook-Pro sample-vite % 
 
 ```
-コンソールエラーは解消された
+### コンソールエラーは解消された
 
 ```
 nameMacBook-Pro sample-vite % npm install --save-dev identity-obj-proxy
@@ -1129,7 +1129,69 @@ export default {
 ```
 
 ```
+### 対応5:
+### 以下のエラーの解決策を探る
+```
+nameMacBook-Pro sample-vite % npm install --save-dev babel-plugin-transform-vite-meta-env
 
+added 1 package, and audited 1447 packages in 1s
+
+171 packages are looking for funding
+  run `npm fund` for details
+
+12 vulnerabilities (1 low, 3 moderate, 8 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+nameMacBook-Pro sample-vite % 
+```
+### 以下のエラーの解決策を探る`npm install --save-dev babel-plugin-transform-vite-meta-env`で生じる
+```
+nameMacBook-Pro sample-vite % npm run test
+
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/sample.spec.js
+ FAIL  src/tests/componenteSample.spec.jsx
+  ● Test suite failed to run
+
+    Configuration error:
+    
+    Could not locate module ./styles.css mapped as:
+    identity-obj-proxy.
+    
+    Please check your configuration for these entries:
+    {
+      "moduleNameMapper": {
+        "/\.(css|less)$/": "identity-obj-proxy"
+      },
+      "resolver": undefined
+    }
+
+      1 | import React from 'react';
+    > 2 | import "./styles.css";
+        | ^
+      3 | import { useState, useEffect } from "react";
+      4 | import { supabase } from './supabase.js';
+      5 |
+
+      at createNoMappedModuleFoundError (node_modules/jest-resolve/build/resolver.js:759:17)
+      at Object.require (src/Todo.jsx:2:1)
+      at Object.require (src/tests/componenteSample.spec.jsx:5:1)
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.072 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
+```
 # 
 ```
 
