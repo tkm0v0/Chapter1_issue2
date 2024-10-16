@@ -360,8 +360,179 @@ nameMacBook-Pro sample-vite %
 ```
 Jest が ECMAScript Modules (ESM) の構文、特に `import.meta.env` を解釈できていないことです。Vite プロジェクトは ESM を使用していますが、Jest のデフォルト設定は CommonJS を想定しているため、このような問題が発生しています。
 ```
-# 
+# コンポーネントのエクスポート/インポートの不一致によるエラー
 ```
+nameMacBook-Pro sample-vite % npm run test
+
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/sample.spec.js
+ FAIL  src/tests/componenteSample.spec.jsx
+  ● Console
+
+    console.error
+      Warning: React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+       7 |   it("タイトルがHello Jestであること", () => {
+       8 |     // testId(title)を指定して取得
+    >  9 |     render(<App />);
+         |            ^
+      10 |     const title = screen.getByTestId("title");
+      11 |     expect(title).toHaveTextContent("Hello Jest");
+      12 |   });
+
+      at printWarning (node_modules/react/cjs/react.development.js:209:30)
+      at error (node_modules/react/cjs/react.development.js:183:7)
+      at Object.createElementWithValidation [as createElement] (node_modules/react/cjs/react.development.js:2354:7)
+      at Object.createElement (src/tests/componenteSample.spec.jsx:9:12)
+
+    console.error
+      Error: Uncaught [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.]
+          at reportException (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:66:24)
+          at innerInvokeEventListeners (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+          at invokeEventListeners (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+          at HTMLUnknownElementImpl._dispatch (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+          at HTMLUnknownElementImpl.dispatchEvent (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:104:17)
+          at HTMLUnknownElement.dispatchEvent (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/generated/EventTarget.js:241:34)
+          at Object.invokeGuardedCallbackDev (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:4213:16)
+          at invokeGuardedCallback (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:4277:31)
+          at beginWork$1 (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:27451:7)
+          at performUnitOfWork (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:26560:12)
+          at workLoopSync (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:26466:5)
+          at renderRootSync (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:26434:7)
+          at performConcurrentWorkOnRoot (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:25738:74)
+          at flushActQueue (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react/cjs/react.development.js:2667:24)
+          at act (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react/cjs/react.development.js:2582:11)
+          at /Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/@testing-library/react/dist/act-compat.js:47:25
+          at renderRoot (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/@testing-library/react/dist/pure.js:180:26)
+          at render (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/@testing-library/react/dist/pure.js:271:10)
+          at Object.<anonymous> (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/src/tests/componenteSample.spec.jsx:9:11)
+          at Promise.then.completed (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:316:40)
+          at processTicksAndRejections (node:internal/process/task_queues:95:5)
+          at _runTest (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-runner/build/runTest.js:444:34)
+          at Object.worker (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-runner/build/testWorker.js:106:12) {
+        detail: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+            at createFiberFromTypeAndProps (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:28439:17)
+            at createFiberFromElement (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:28465:15)
+            at reconcileSingleElement (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:15750:23)
+            at reconcileChildFibers (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:15808:35)
+            at reconcileChildren (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:19174:28)
+            at updateHostRoot (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:19883:5)
+            at beginWork (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:21615:14)
+            at HTMLUnknownElement.callCallback (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:4164:14)
+            at HTMLUnknownElement.callTheUserObjectsOperation (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+            at innerInvokeEventListeners (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25)
+            at invokeEventListeners (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+            at HTMLUnknownElementImpl._dispatch (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+            at HTMLUnknownElementImpl.dispatchEvent (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:104:17)
+            at HTMLUnknownElement.dispatchEvent (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jsdom/lib/jsdom/living/generated/EventTarget.js:241:34)
+            at Object.invokeGuardedCallbackDev (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:4213:16)
+            at invokeGuardedCallback (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:4277:31)
+            at beginWork$1 (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:27451:7)
+            at performUnitOfWork (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:26560:12)
+            at workLoopSync (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:26466:5)
+            at renderRootSync (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:26434:7)
+            at performConcurrentWorkOnRoot (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react-dom/cjs/react-dom.development.js:25738:74)
+            at flushActQueue (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react/cjs/react.development.js:2667:24)
+            at act (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/react/cjs/react.development.js:2582:11)
+            at /Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/@testing-library/react/dist/act-compat.js:47:25
+            at renderRoot (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/@testing-library/react/dist/pure.js:180:26)
+            at render (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/@testing-library/react/dist/pure.js:271:10)
+            at Object.<anonymous> (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/src/tests/componenteSample.spec.jsx:9:11)
+            at Promise.then.completed (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/utils.js:298:28)
+            at new Promise (<anonymous>)
+            at callAsyncCircusFn (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/utils.js:231:10)
+            at _callCircusTest (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:316:40)
+            at processTicksAndRejections (node:internal/process/task_queues:95:5)
+            at _runTest (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:252:3)
+            at _runTestsForDescribeBlock (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:126:9)
+            at _runTestsForDescribeBlock (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:121:9)
+            at run (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/run.js:71:3)
+            at runAndTransformResultsToJestFormat (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+            at jestAdapter (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+            at runTestInternal (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-runner/build/runTest.js:367:16)
+            at runTest (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-runner/build/runTest.js:444:34)
+            at Object.worker (/Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/node_modules/jest-runner/build/testWorker.js:106:12),
+        type: 'unhandled exception'
+      }
+
+       7 |   it("タイトルがHello Jestであること", () => {
+       8 |     // testId(title)を指定して取得
+    >  9 |     render(<App />);
+         |           ^
+      10 |     const title = screen.getByTestId("title");
+      11 |     expect(title).toHaveTextContent("Hello Jest");
+      12 |   });
+
+      at VirtualConsole.<anonymous> (node_modules/jest-environment-jsdom/build/index.js:63:23)
+      at reportException (node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:70:28)
+      at innerInvokeEventListeners (node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+      at invokeEventListeners (node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+      at HTMLUnknownElementImpl._dispatch (node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+      at HTMLUnknownElementImpl.dispatchEvent (node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:104:17)
+      at HTMLUnknownElement.dispatchEvent (node_modules/jsdom/lib/jsdom/living/generated/EventTarget.js:241:34)
+      at Object.invokeGuardedCallbackDev (node_modules/react-dom/cjs/react-dom.development.js:4213:16)
+      at invokeGuardedCallback (node_modules/react-dom/cjs/react-dom.development.js:4277:31)
+      at beginWork$1 (node_modules/react-dom/cjs/react-dom.development.js:27451:7)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:26560:12)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:26466:5)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom.development.js:26434:7)
+      at performConcurrentWorkOnRoot (node_modules/react-dom/cjs/react-dom.development.js:25738:74)
+      at flushActQueue (node_modules/react/cjs/react.development.js:2667:24)
+      at act (node_modules/react/cjs/react.development.js:2582:11)
+      at node_modules/@testing-library/react/dist/act-compat.js:47:25
+      at renderRoot (node_modules/@testing-library/react/dist/pure.js:180:26)
+      at render (node_modules/@testing-library/react/dist/pure.js:271:10)
+      at Object.<anonymous> (src/tests/componenteSample.spec.jsx:9:11)
+
+  ● Title Test › タイトルがHello Jestであること
+
+    Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+       7 |   it("タイトルがHello Jestであること", () => {
+       8 |     // testId(title)を指定して取得
+    >  9 |     render(<App />);
+         |           ^
+      10 |     const title = screen.getByTestId("title");
+      11 |     expect(title).toHaveTextContent("Hello Jest");
+      12 |   });
+
+      at createFiberFromTypeAndProps (node_modules/react-dom/cjs/react-dom.development.js:28439:17)
+      at createFiberFromElement (node_modules/react-dom/cjs/react-dom.development.js:28465:15)
+      at reconcileSingleElement (node_modules/react-dom/cjs/react-dom.development.js:15750:23)
+      at reconcileChildFibers (node_modules/react-dom/cjs/react-dom.development.js:15808:35)
+      at reconcileChildren (node_modules/react-dom/cjs/react-dom.development.js:19174:28)
+      at updateHostRoot (node_modules/react-dom/cjs/react-dom.development.js:19883:5)
+      at beginWork (node_modules/react-dom/cjs/react-dom.development.js:21615:14)
+      at beginWork$1 (node_modules/react-dom/cjs/react-dom.development.js:27426:14)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:26560:12)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:26466:5)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom.development.js:26434:7)
+      at performConcurrentWorkOnRoot (node_modules/react-dom/cjs/react-dom.development.js:25738:74)
+      at flushActQueue (node_modules/react/cjs/react.development.js:2667:24)
+      at act (node_modules/react/cjs/react.development.js:2582:11)
+      at node_modules/@testing-library/react/dist/act-compat.js:47:25
+      at renderRoot (node_modules/@testing-library/react/dist/pure.js:180:26)
+      at render (node_modules/@testing-library/react/dist/pure.js:271:10)
+      at Object.<anonymous> (src/tests/componenteSample.spec.jsx:9:11)
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 failed, 1 passed, 2 total
+Snapshots:   0 total
+Time:        1.643 s, estimated 2 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
 
 ```
 # 
