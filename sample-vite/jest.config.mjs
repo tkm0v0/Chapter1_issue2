@@ -1,9 +1,9 @@
 export default {
   testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["./jest.setup.js"],
   moduleNameMapper: {
     "\\.(css|less)$": "identity-obj-proxy",
   },
-  setupFilesAfterEnv: ["./jest.setup.js"],
   transform: {
     "^.+\\.[tj]sx?$": "babel-jest",
   },

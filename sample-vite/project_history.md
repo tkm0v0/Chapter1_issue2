@@ -859,10 +859,278 @@ Time:        2.362 s
 Ran all test suites.
 nameMacBook-Pro sample-vite % 
 ```
-# 
+# コンソールエラー
+```
+supabase.js:3 Uncaught ReferenceError: process is not defined
+    at supabase.js:3:21
+```
+## `supabase.js`で、import.meta.envをprocess.envに変更して発生した。
+### 対応1: コードを環境に応じて切り替える
+```
+// supabase.js
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = typeof process !== 'undefined' && process.env.VITE_SUPABASE_URL
+  ? process.env.VITE_SUPABASE_URL
+  : import.meta.env.VITE_SUPABASE_URL
+
+const supabaseAnonKey = typeof process !== 'undefined' && process.env.VITE_SUPABASE_ANON_KEY
+  ? process.env.VITE_SUPABASE_ANON_KEY
+  : import.meta.env.VITE_SUPABASE_ANON_KEY
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+```
+### 結果:
+他のエラーが出るのでやめる
+```
+nameMacBook-Pro sample-vite % npm run test
+
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/sample.spec.js
+ FAIL  src/tests/componenteSample.spec.jsx
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    /Users/name_1/Desktop/_workspace_JISOU/workspace_chapter1-issue2/Chapter1_issue2/sample-vite/src/supabase.js:8
+    var supabaseUrl = typeof process !== 'undefined' && process.env.VITE_SUPABASE_URL ? process.env.VITE_SUPABASE_URL : import.meta.env.VITE_SUPABASE_URL;
+                                                                                                                               ^^^^
+
+    SyntaxError: Cannot use 'import.meta' outside a module
+
+      2 | import "./styles.css";
+      3 | import { useState, useEffect } from "react";
+    > 4 | import { supabase } from './supabase.js';
+        | ^
+      5 |
+      6 | export const Todo = () => {
+      7 |   const [form, setForm] = useState({ textInputDetail: "", textInputTime: "" });
+
+      at Runtime.createScriptFromCode (node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.require (src/Todo.jsx:4:1)
+      at Object.require (src/tests/componenteSample.spec.jsx:2:1)
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.319 s, estimated 2 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
+```
+### 対応2:　Viteの設定でprocess.envを定義する
+Viteの設定ファイルでdefineオプションを使用して、process.envを定義
+```
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  base: '/',
+  define: {
+    'process.env': process.env,
+  },
+})
+
+```
+### 結果:
+```
+nameMacBook-Pro sample-vite % npm run test
+
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/componenteSample.spec.jsx
+ PASS  src/tests/sample.spec.js
+
+Test Suites: 2 passed, 2 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.653 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
+```
+コンソールエラーは変わらない
+```
+supabase.js:3 Uncaught ReferenceError: process is not defined
+    at supabase.js:3:21
+```
+### 対応3: テスト環境でimport.meta.envをサポートする
+コードを元に戻し、テスト環境でimport.meta.envを使用できるように設定
+
+Babelプラグインをインストール
+```
+nameMacBook-Pro sample-vite % npm install --save-dev babel-plugin-transform-vite-meta-env
+
+added 1 package, removed 2 packages, and audited 1447 packages in 2s
+
+171 packages are looking for funding
+  run `npm fund` for details
+
+12 vulnerabilities (1 low, 3 moderate, 8 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+```
+Babelの設定を更新
+```
+// babel.config.js
+module.exports = {
+  presets: ['@babel/preset-env', '@babel/preset-react'],
+  plugins: ['transform-vite-meta-env'],
+}
+
+
+```
+Jestの設定を更新
+```
+// jest.config.js
+module.exports = {
+  // その他の設定
+  setupFiles: ['<rootDir>/jest.setup.js'],
+}
+
+```
+### 結果:
+```
+ FAIL  src/tests/componenteSample.spec.jsx
+  ● Test suite failed to run
+
+    ReferenceError: expect is not defined
+
+      1 | import "@testing-library/jest-dom";
+      2 |
+    > 3 | // dotenvの設定
+        | ^
+      4 | require("dotenv").config();
+      5 |
+      6 | // jest.setup.js
+
+      at Object.<anonymous> (node_modules/@testing-library/jest-dom/dist/index.js:12:1)
+      at Object.<anonymous> (jest.setup.js:3:1)
+
+Test Suites: 2 failed, 2 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        1.121 s, estimated 2 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
+
+```
+コンソールエラーは解消された
+
+```
+nameMacBook-Pro sample-vite % npm install --save-dev identity-obj-proxy
+
+added 2 packages, and audited 1449 packages in 2s
+
+171 packages are looking for funding
+  run `npm fund` for details
+
+12 vulnerabilities (1 low, 3 moderate, 8 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+nameMacBook-Pro sample-vite % 
+```
+バージョン違いのエラーが出たので、`npm install --save-dev identity-obj-proxy`はやめる
+```
+nameMacBook-Pro sample-vite % npm run test
+
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/sample.spec.js
+ FAIL  src/tests/componenteSample.spec.jsx
+  ● Test suite failed to run
+
+    Configuration error:
+    
+    Could not locate module ./styles.css mapped as:
+    identity-obj-proxy.
+    
+    Please check your configuration for these entries:
+    {
+      "moduleNameMapper": {
+        "/\.(css|less)$/": "identity-obj-proxy"
+      },
+      "resolver": undefined
+    }
+
+      1 | import React from 'react';
+    > 2 | import "./styles.css";
+        | ^
+      3 | import { useState, useEffect } from "react";
+      4 | import { supabase } from './supabase.js';
+      5 |
+
+      at createNoMappedModuleFoundError (node_modules/jest-resolve/build/resolver.js:759:17)
+      at Object.require (src/Todo.jsx:2:1)
+      at Object.require (src/tests/componenteSample.spec.jsx:2:1)
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.067 s
+Ran all test suites.
+```
+
+その他
+```
+export default {
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["./jest.setup.js"], //追加
+  moduleNameMapper: {
+    "\\.(css|less)$": "identity-obj-proxy",
+  },
+  transform: {
+    "^.+\\.[tj]sx?$": "babel-jest",
+  },
+};
+
+```
+
+### 対応4:
 ```
 
 ```
+### 結果:
+```
+
+```
+
 # 
 ```
 
