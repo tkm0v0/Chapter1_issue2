@@ -1,12 +1,12 @@
-name: Build and Deploy
+name: Build, Test, and Deploy
 
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  build-test-and-deploy:
+    name: Build, Test, and Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,6 +20,12 @@ jobs:
       - name: Install dependencies
         run: npm ci #より確実な依存関係のインストールを行う
         working-directory: ./sample-vite  # 実行ディレクトリを設定
+      - name: Run tests
+        run: npm test
+        working-directory: ./sample-vite
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
       - name: Run build
         run: npm run build
         working-directory: ./sample-vite  # 実行ディレクトリを設定
