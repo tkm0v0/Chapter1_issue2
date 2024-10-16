@@ -1,13 +1,14 @@
+// src/tests/componenteSample.spec.jsx
 import { Todo } from "../Todo.jsx";
 import React from "react";
 import '@testing-library/jest-dom';
 import { render, screen } from "@testing-library/react";
 
 describe("Title Test", () => {
-  it("タイトルがHello Jestであること", async () => { // テスト関数をasyncに
+  it("タイトルがHello Jestであること", async () => {
     render(<Todo />);
-    // `findByTestId`は要素が見つかるまで待機します
-    const title = await screen.findByTestId("title");
+    // 変更後のdata-testidを使用
+    const title = await screen.findByTestId("page-title");
     expect(title).toHaveTextContent("Hello Jest");
   });
 });

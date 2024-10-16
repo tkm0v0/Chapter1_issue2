@@ -535,7 +535,7 @@ Ran all test suites.
 nameMacBook-Pro sample-vite % 
 
 ```
-# 
+# テスト内で非同期処理を待機する
 ```
 nameMacBook-Pro sample-vite % npm run test
 
@@ -585,13 +585,206 @@ Snapshots:   0 total
 Time:        1.384 s
 Ran all test suites.
 ```
-# 
+# 結果
 ```
+nameMacBook-Pro sample-vite % npm run test
 
-```
-# 
-```
+> sample-vite@0.0.0 test
+> jest
 
+ FAIL  src/tests/componenteSample.spec.jsx
+  ● Title Test › タイトルがHello Jestであること
+
+    Found multiple elements by: [data-testid="title"]
+
+    Here are the matching elements:
+
+    Ignored nodes: comments, script, style
+    <title
+      data-testid="title"
+    >
+      Hello Jest
+    </title>
+
+    Ignored nodes: comments, script, style
+    <h1
+      data-testid="title"
+    >
+      学習記録一覧
+    </h1>
+
+    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+    Ignored nodes: comments, script, style
+    <body>
+      <div>
+        <title
+          data-testid="title"
+        >
+          Hello Jest
+        </title>
+        <h1
+          data-testid="title"
+        >
+          学習記録一覧
+        </h1>
+        <div>
+          <div>
+            <label>
+              <span>
+                学習内容
+              </span>
+              <input
+                name="textInputDetail"
+                placeholder="内容"
+                type="text"
+                value=""
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              <span>
+                学習時間
+              </span>
+              <input
+                min="0"
+                name="textInputTime"
+                placeholder="時間"
+                type="number"
+                value=""
+              />
+            </label>
+          </div>
+          <div
+            style="color: skyblue;"
+          >
+            <p>
+                 入力されている学習内容：
+            </p>
+            <p>
+                 入力されている学習時間：
+              時間
+            </p>
+          </div>
+        </div>
+        <div>
+          <div
+            style="display: flex; align-items: center; margin-bottom: 10px;"
+          >
+            <p
+              style="margin: 0px;"
+            >
+              【記録1】あいうえ
+              <span
+                style="border-bottom: 1px solid black; margin-left: 20px;"
+              >
+                3時間
+              </span>
+            </p>
+            <button
+              style="margin-left: 20px; padding: 5px 10px; cursor: pointer;"
+            >
+              削除
+            </button>
+          </div>
+          <div
+            style="display: flex; align-items: center; margin-bottom: 10px;"
+          >
+            <p
+              style="margin: 0px;"
+            >
+              【記録2】記録1
+              <span
+                style="border-bottom: 1px solid black; margin-left: 20px;"
+              >
+                10時間
+              </span>
+            </p>
+            <button
+              style="margin-left: 20px; padding: 5px 10px; cursor: pointer;"
+            >
+              削除
+            </button>
+          </div>
+          <div
+            style="display: flex; align-items: center; margin-bottom: 10px;"
+          >
+            <p
+              style="margin: 0px;"
+            >
+              【記録3】テスト記録
+              <span
+                style="border-bottom: 1px solid black; margin-left: 20px;"
+              >
+                3時間
+              </span>
+            </p>
+            <button
+              style="margin-left: 20px; padding: 5px 10px; cursor: pointer;"
+            >
+              削除
+            </button>
+          </div>
+        </div>
+        <button>
+          登録
+        </button>
+        <p>
+           
+        </p>
+        <p>
+          合計時間: 
+          16
+          /1000（h）
+        </p>
+      </div>
+    </body>
+
+       8 |     render(<Todo />);
+       9 |     // `findByTestId`は要素が見つかるまで待機します
+    > 10 |     const title = await screen.findByTestId("title");
+         |                                ^
+      11 |     expect(title).toHaveTextContent("Hello Jest");
+      12 |   });
+      13 | });
+
+      at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+      at findByTestId (src/tests/componenteSample.spec.jsx:10:32)
+      at call (src/tests/componenteSample.spec.jsx:2:1)
+      at Generator.tryCatch (src/tests/componenteSample.spec.jsx:2:1)
+      at Generator._invoke [as next] (src/tests/componenteSample.spec.jsx:2:1)
+      at asyncGeneratorStep (src/tests/componenteSample.spec.jsx:2:1)
+      at asyncGeneratorStep (src/tests/componenteSample.spec.jsx:2:1)
+      at _next (src/tests/componenteSample.spec.jsx:2:1)
+      at Object.<anonymous> (src/tests/componenteSample.spec.jsx:2:1)
+
+ PASS  src/tests/sample.spec.js
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 failed, 1 passed, 2 total
+Snapshots:   0 total
+Time:        2.377 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
+```
+# テスト成功！
+```
+nameMacBook-Pro sample-vite % npm run test
+
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/sample.spec.js
+ PASS  src/tests/componenteSample.spec.jsx
+
+Test Suites: 2 passed, 2 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.75 s, estimated 2 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
 ```
 # 
 ```

@@ -109,8 +109,8 @@ export const Todo = () => {
 
   return (
     <>
-      <title data-testid="title">Hello Jest</title>
-      <h1 data-testid="title">学習記録一覧</h1>
+    <title data-testid="page-title">Hello Jest</title> {/* data-testidを変更 */}
+    <h1 data-testid="header-title">学習記録一覧</h1> {/* data-testidを変更 */}
       <div>
         <div>
           <label>
