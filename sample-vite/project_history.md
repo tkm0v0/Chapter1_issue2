@@ -1317,9 +1317,24 @@ Time:        1.971 s
 Ran all test suites.
 nameMacBook-Pro sample-vite % 
 ```
-# 
+# `src/tests/Todo.test.jsx`を作成
+## テスト成功
 ```
+nameMacBook-Pro sample-vite % npm run test
 
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/Todo.test.jsx
+ PASS  src/tests/componenteSample.spec.jsx
+ PASS  src/tests/sample.spec.js
+
+Test Suites: 3 passed, 3 total
+Tests:       5 passed, 5 total
+Snapshots:   0 total
+Time:        1.604 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
 ```
 # 
 ```
