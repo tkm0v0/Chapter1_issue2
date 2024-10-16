@@ -1299,8 +1299,23 @@ nameMacBook-Pro sample-vite %
 # babel-plugin-transform-vite-meta-env を使用して、import.meta.env を Node.js 環境でも使用できるように変換します。しかし、現在の babel.config.js ではこのプラグインが設定されていないため、エラーが発生しています。
 
 ## babel.config.js の更新： plugins オプションを追加し、babel-plugin-transform-vite-meta-env を設定
-```
 
+# 成功した
+```
+nameMacBook-Pro sample-vite % npm run test
+
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/sample.spec.js
+ PASS  src/tests/componenteSample.spec.jsx
+
+Test Suites: 2 passed, 2 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.971 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
 ```
 # 
 ```
