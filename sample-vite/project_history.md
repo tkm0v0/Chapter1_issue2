@@ -537,7 +537,53 @@ nameMacBook-Pro sample-vite %
 ```
 # 
 ```
+nameMacBook-Pro sample-vite % npm run test
 
+> sample-vite@0.0.0 test
+> jest
+
+ FAIL  src/tests/componenteSample.spec.jsx
+  ● Title Test › タイトルがHello Jestであること
+
+    TestingLibraryElementError: Unable to find an element by: [data-testid="title"]
+
+    Ignored nodes: comments, script, style
+    <body>
+      <div>
+        <div
+          style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: white; flex-direction: column;"
+        >
+          <h2>
+            loading...
+          </h2>
+          <p>
+            読み込み中です。
+          </p>
+        </div>
+      </div>
+    </body>
+
+       8 |     // testId(title)を指定して取得
+       9 |     render(<Todo />);
+    > 10 |     const title = screen.getByTestId("title");
+         |                          ^
+      11 |     expect(title).toHaveTextContent("Hello Jest");
+      12 |   });
+      13 | });
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+      at Object.getByTestId (src/tests/componenteSample.spec.jsx:10:26)
+
+ PASS  src/tests/sample.spec.js
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 failed, 1 passed, 2 total
+Snapshots:   0 total
+Time:        1.384 s
+Ran all test suites.
 ```
 # 
 ```
