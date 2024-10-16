@@ -18,8 +18,8 @@ jobs:
           cache: "npm"
           cache-dependency-path: ./sample-vite/package-lock.json
       - name: Install dependencies
-        run: npm ci #より確実な依存関係のインストールを行う
-        working-directory: ./sample-vite  # 実行ディレクトリを設定
+        run: npm ci
+        working-directory: ./sample-vite 
       - name: Run tests
         run: npm test
         working-directory: ./sample-vite
@@ -28,24 +28,24 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
       - name: Run build
         run: npm run build
-        working-directory: ./sample-vite  # 実行ディレクトリを設定
+        working-directory: ./sample-vite 
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
       - name: Install firebase-tools
         run: npm install --save-dev firebase-tools
-        working-directory: ./sample-vite  # 実行ディレクトリを設定
+        working-directory: ./sample-vite 
       - name: Decode Firebase service account key
         run: |
           echo "${{ secrets.FIREBASE_KEY }}" | base64 -d > ./firebase-key.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/firebase-key.json" >> $GITHUB_ENV
       - name: change space
         run: ./node_modules/.bin/firebase use ${{ secrets.FIREBASE_PROJECT_ID }}
-        working-directory: ./sample-vite  # 実行ディレクトリを設定
+        working-directory: ./sample-vite 
       - name: Deploy to Firebase Hosting
         run: |
           ./node_modules/.bin/firebase deploy --only hosting
-        working-directory: ./sample-vite  # 実行ディレクトリを設定
+        working-directory: ./sample-vite 
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_CLI_EXPERIMENTS: webframeworks
