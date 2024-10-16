@@ -786,7 +786,7 @@ Time:        1.75 s, estimated 2 s
 Ran all test suites.
 nameMacBook-Pro sample-vite % 
 ```
-# 
+# 新しいエラー
 ```
 nameMacBook-Pro sample-vite % npm run test
 
@@ -827,4 +827,75 @@ Snapshots:   0 total
 Time:        1.02 s
 Ran all test suites.
 nameMacBook-Pro sample-vite % 
+```
+## エラーの内容:
+- 確認中の問題点を特定する
+
+エラーメッセージが示すところ、identity-obj-proxyの未インストールが原因でCI環境でJestを使っているとCSSファイルのインポートに問題が生じている。าษา
+
+identity-obj-proxyのないことが問題のようです。
+
+- 確認と必要なツールの設定
+
+Jestの設定ファイルにidentity-obj-proxyを追加し、npm install --save-dev identity-obj-proxyでインストールしている。これにより、CSSインポートのエラーが解消される。
+ 
+babel.config.jsファイルを確認すると、
+ここで指定されているプラグインtransform-vite-meta-env（実際のモジュール名はbabel-plugin-transform-vite-meta-env）がプロジェクトにインストールされていないため、エラーが発生しています。
+
+# 解決した
+```
+nameMacBook-Pro sample-vite % npm run test
+
+> sample-vite@0.0.0 test
+> jest
+
+ PASS  src/tests/sample.spec.js
+ PASS  src/tests/componenteSample.spec.jsx
+
+Test Suites: 2 passed, 2 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        2.362 s
+Ran all test suites.
+nameMacBook-Pro sample-vite % 
+```
+# 
+```
+
+```
+# 
+```
+
+```
+# 
+```
+
+```
+# 
+```
+
+```
+# 
+```
+
+```
+# 
+```
+
+```
+# 
+```
+
+```
+# 
+```
+
+```
+# 
+```
+
+```
+# 
+```
+
 ```
