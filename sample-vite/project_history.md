@@ -1336,22 +1336,92 @@ Time:        1.604 s
 Ran all test suites.
 nameMacBook-Pro sample-vite % 
 ```
-# 
+# Supabaseのプロジェクトが完全に停止していたので復元する
+[参考](https://zenn.dev/ksyunnnn/articles/d2c774a14afbcb)
+## PostgreSQLクライアントツールをインストール
+`psql`: SQLファイルを直接実行するシンプルなSQLクライアントをインストールする。
+`brew install postgresql`
+バックアップファイルをプレーンなSQLとして順次実行します。
 ```
+nameMacBook-Pro Chapter1_issue2 % brew install postgresql
+==> Downloading https://formulae.brew.sh/api/formula.jws.json
+==> Downloading https://formulae.brew.sh/api/cask.jws.json
+==> Downloading https://ghcr.io/v2/homebrew/core/postgresql/14/manifests/14.17
+########################################################################################################################################## 100.0%
+==> Fetching dependencies for postgresql@14: openssl@3
+==> Downloading https://ghcr.io/v2/homebrew/core/openssl/3/manifests/3.4.1
+########################################################################################################################################## 100.0%
+==> Fetching dependencies for openssl@3: ca-certificates
+==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2025-02-25
+########################################################################################################################################## 100.0%
+==> Fetching ca-certificates
+==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:8f46fb05f753f80f2bc398c0a24b10d680bd77d496e2b931de0b61998e37aebc
+########################################################################################################################################## 100.0%
+==> Fetching openssl@3
+==> Downloading https://ghcr.io/v2/homebrew/core/openssl/3/blobs/sha256:e8a8957f282b27371283b8c7a17e743c1c4e4e242ea7ee68bbe23f883da4948f
+########################################################################################################################################## 100.0%
+==> Fetching postgresql@14
+==> Downloading https://ghcr.io/v2/homebrew/core/postgresql/14/blobs/sha256:a34c71754db8a6f5082993f79c2c236ab2d19f3820332994919305f573f2a911
+########################################################################################################################################## 100.0%
+==> Installing dependencies for postgresql@14: openssl@3
+==> Installing postgresql@14 dependency: openssl@3
+==> Downloading https://ghcr.io/v2/homebrew/core/openssl/3/manifests/3.4.1
+Already downloaded: /Users/name_1/Library/Caches/Homebrew/downloads/a2bb8b71ebddb1fe8553581fcbc1ffc4ab36795c68b3cd47977cf83f1673a5b1--openssl@3-3.4.1.bottle_manifest.json
+==> Installing dependencies for openssl@3: ca-certificates
+==> Installing openssl@3 dependency: ca-certificates
+==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2025-02-25
+Already downloaded: /Users/name_1/Library/Caches/Homebrew/downloads/6c1debb525d4dc6007afae4cd2b772105111632b22fc28506550f6dfe27c6d52--ca-certificates-2025-02-25.bottle_manifest.json
+==> Pouring ca-certificates--2025-02-25.all.bottle.tar.gz
+==> Regenerating CA certificate bundle from keychain, this may take a while...
+🍺  /usr/local/Cellar/ca-certificates/2025-02-25: 4 files, 235.9KB
+==> Installing openssl@3
+==> Pouring openssl@3--3.4.1.sequoia.bottle.tar.gz
+🍺  /usr/local/Cellar/openssl@3/3.4.1: 7,236 files, 120.7MB
+==> Installing postgresql@14
+==> Pouring postgresql@14--14.17.sonoma.bottle.tar.gz
+==> /usr/local/Cellar/postgresql@14/14.17/bin/initdb --locale=C -E UTF-8 /usr/local/var/postgresql@14
+==> Caveats
+This formula has created a default database cluster with:
+  initdb --locale=C -E UTF-8 /usr/local/var/postgresql@14
+
+To start postgresql@14 now and restart at login:
+  brew services start postgresql@14
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/postgresql@14/bin/postgres -D /usr/local/var/postgresql@14
+==> Summary
+🍺  /usr/local/Cellar/postgresql@14/14.17: 3,330 files, 42.2MB
+==> Running `brew cleanup postgresql@14`...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
+
 
 ```
-# 
+
+## Spabeseで、新規PJの作成→設定fileの書き換え
+### `.env`fileの書き換え 
++ [GitHub Secretsの設定](https://github.com/tkm0v0/Chapter1_issue2/issues/3#issue-2585186896)の変更
 ```
+//.env
+VITE_SUPABASE_URL=https://<新規PJのホスト名に書き換え>.supabase.co
+VITE_SUPABASE_ANON_KEY=<新規PJのホスト名に書き換え>
+```
+### コマンドの書き換え
+```
+psql -h db.<新規PJのホスト名に書き換え>.supabase.co -p 5432 -U postgres -d postgres -f ./db_cluster-26-10-2024@07-15-39.backup
+```
+```
+psql -h db.<新規PJのホスト名に書き換え>.supabase.co -p 5432 -U postgres -d postgres -f ./db_cluster-26-10-2024@07-15-39.backup
+```
+### `.backup`fileを探す
+```
+find ./sample-vite -name "db_cluster-26-10-2024@07-15-39.backup"
+```
+### 単純な接続テスト
+```
+ping db.<新規PJのホスト名に書き換え>.supabase.co
 
 ```
-# 
-```
 
-```
-# 
-```
-
-```
 # 
 ```
 
