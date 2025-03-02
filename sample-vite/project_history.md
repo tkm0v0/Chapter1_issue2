@@ -1424,11 +1424,50 @@ ping db.<新規PJのホスト名に書き換え>.supabase.co
 
 # 
 ```
+nameMacBook-Pro sample-vite % npm run build
 
-```
-# 
-```
+> sample-vite@0.0.0 build
+> vite build
 
+The CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+vite v5.2.6 building for production...
+✓ 108 modules transformed.
+dist/index.html                    0.43 kB │ gzip:  0.28 kB
+dist/assets/index-DuUS2S-g.css     0.05 kB │ gzip:  0.07 kB
+dist/assets/browser-BuiaQ32w.js    0.57 kB │ gzip:  0.40 kB
+dist/assets/index-BnLvZ7nN.js    248.28 kB │ gzip: 74.75 kB
+✓ built in 628ms
+nameMacBook-Pro sample-vite % 
+```
+# DB復旧した
+```
+nameMacBook-Pro sample-vite % npm run dev
+
+> sample-vite@0.0.0 dev
+> vite
+
+The CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+
+  VITE v5.2.6  ready in 1018 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+nameMacBook-Pro sample-vite % npm run build
+
+> sample-vite@0.0.0 build
+> vite build
+
+The CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+vite v5.2.6 building for production...
+✓ 108 modules transformed.
+dist/index.html                    0.43 kB │ gzip:  0.28 kB
+dist/assets/index-DuUS2S-g.css     0.05 kB │ gzip:  0.07 kB
+dist/assets/browser-BuiaQ32w.js    0.57 kB │ gzip:  0.40 kB
+dist/assets/index-BnLvZ7nN.js    248.28 kB │ gzip: 74.75 kB
+✓ built in 628ms
+nameMacBook-Pro sample-vite % 
 ```
 # 
 ```
