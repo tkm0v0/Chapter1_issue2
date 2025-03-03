@@ -16,9 +16,9 @@
  1. GitHubリポジトリのページに移動します。
  1. **Settings** タブをクリックします。
  1. 左側のサイドバーで **Secrets and variables** を展開し、**Actions** を選択します。
- <img width="1560" alt="Image" src="https://github.com/user-attachments/assets/59b7bdc5-570e-4147-9877-ebfd35715548" />
+    <img width="1560" alt="Image" src="https://github.com/user-attachments/assets/59b7bdc5-570e-4147-9877-ebfd35715548" />
  1. **New repository secret** ボタンをクリックするか既存の設定を編集します。
-        <img width="1495" alt="Image" src="https://github.com/user-attachments/assets/5a3ad238-a077-4412-b45d-985e32f9f109" />
+    <img width="1495" alt="Image" src="https://github.com/user-attachments/assets/5a3ad238-a077-4412-b45d-985e32f9f109" />
  1. `.env`file内に設定されている値を入力/更新します。
  1. **Add secret** をクリックして保存します。
 
