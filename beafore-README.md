@@ -1,3 +1,5 @@
+# 環境構築時(過去)のREADME
+
 # Chapter1_環境構築
 
 ## MacのReact環境構築
@@ -39,7 +41,7 @@ Ok to proceed? (y) y
 ✔ Select a framework: › React
 ✔ Select a variant: › JavaScript
 
-Scaffolding project in /Users/takahashimai_1/Desktop/_workspace_JISOU/Chapter1_task1/sample-vite...
+Scaffolding project in /Users/name_1/Desktop/_workspace_JISOU/Chapter1_task1/sample-vite...
 
 Done. Now run:
 
@@ -54,16 +56,16 @@ npm notice Run npm install -g npm@10.5.0 to update!
 npm notice 
 @MacBook-Pro Chapter1_task1 % cd
 @MacBook-Pro ~ % pwd                      
-/Users/takahashimai_1
-@MacBook-Pro ~ % cd /Users/takahashimai_1/Desktop/_workspace_JISOU/Chapter1_task1/sample-vit
-cd: no such file or directory: /Users/takahashimai_1/Desktop/_workspace_JISOU/Chapter1_task1/sample-vit
-@MacBook-Pro ~ % cd /Users/takahashimai_1/Desktop                                           
+/Users/name_1
+@MacBook-Pro ~ % cd /Users/name_1/Desktop/_workspace_JISOU/Chapter1_task1/sample-vit
+cd: no such file or directory: /Users/name_1/Desktop/_workspace_JISOU/Chapter1_task1/sample-vit
+@MacBook-Pro ~ % cd /Users/name_1/Desktop                                           
 @MacBook-Pro Desktop % cd _workspace_JISOU/Chapter1_task1/sample-vit
 cd: no such file or directory: _workspace_JISOU/Chapter1_task1/sample-vit
 @MacBook-Pro Desktop % cd _workspace_JISOU/Chapter1_task1           
 @MacBook-Pro Chapter1_task1 % cd sample-vite 
 @MacBook-Pro sample-vite % pwd
-/Users/takahashimai_1/Desktop/_workspace_JISOU/Chapter1_task1/sample-vite
+/Users/name_1/Desktop/_workspace_JISOU/Chapter1_task1/sample-vite
 @MacBook-Pro sample-vite % 
 ```
 ```
