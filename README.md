@@ -22,7 +22,7 @@
  1. `.env`file内に設定されている値を入力/更新します。
  1. **Add secret** をクリックして保存します。
 
-
+([`.env`fileを使用しなかった経緯](https://github.com/tkm0v0/Chapter1_issue2/issues/3#issue-2585186896))
 </details>
 
 <br>
